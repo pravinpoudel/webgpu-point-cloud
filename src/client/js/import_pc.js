@@ -1,3 +1,4 @@
+var lasFile;
 function uploadLAS(file) {
   console.log(file);
 
@@ -6,7 +7,7 @@ function uploadLAS(file) {
     alert("error reading las/laz");
   };
   reader.onload = function (evt) {
-    var lasFile = new LASFile(reader.result, file[0].name);
+    lasFile = new LASFile(reader.result, file[0].name);
     console.log(
       `Opened LAS/LAZ file '${file[0].name}' containing ${lasFile.numPoints} points`
     );
