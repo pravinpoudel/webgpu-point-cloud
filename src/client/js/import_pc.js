@@ -20,6 +20,7 @@ function uploadLAS(file) {
       console.log("File has colors");
       console.log(lasFile.colors);
     }
+    stages();
   };
   reader.readAsArrayBuffer(file[0]);
 }
