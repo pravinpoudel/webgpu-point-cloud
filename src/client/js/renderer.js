@@ -289,23 +289,22 @@ async function stages() {
 }
 
 function render(timestamp) {
-  console.log("hi");
   commandEncoder = device.createCommandEncoder();
-  // projView = mat4.mul(projView, proj, camera.camera);
-  update(timestamp);
+  projView = mat4.mul(projView, proj, camera.camera);
+  // update(timestamp);
   encodedCommand();
 
-  device.queue.writeBuffer(MVP_Buffer, 0, worldViewProj, 16);
+  // device.queue.writeBuffer(MVP_Buffer, 0, worldViewProj, 16);
 
-  // let wvStagingBuffer = device.createBuffer({
-  //   size: 4 * 16,
-  //   usage: GPUBufferUsage.COPY_SRC,
-  //   mappedAtCreation: true,
-  // });
-  // const stagingUniformData = new Float32Array(wvStagingBuffer.getMappedRange());
-  // stagingUniformData.set(projView);
-  // wvStagingBuffer.unmap();
-  // commandEncoder.copyBufferToBuffer(wvStagingBuffer, 0, MVP_Buffer, 0, 64);
+  let wvStagingBuffer = device.createBuffer({
+    size: 4 * 16,
+    usage: GPUBufferUsage.COPY_SRC,
+    mappedAtCreation: true,
+  });
+  const stagingUniformData = new Float32Array(wvStagingBuffer.getMappedRange());
+  stagingUniformData.set(projView);
+  wvStagingBuffer.unmap();
+  commandEncoder.copyBufferToBuffer(wvStagingBuffer, 0, MVP_Buffer, 0, 64);
   let renderPass = commandEncoder.beginRenderPass(renderPassDescriptor);
   renderPass.setPipeline(renderPipeline);
   renderPass.setViewport(0, 0, canvas.width, canvas.height, 0.0, 1.0);

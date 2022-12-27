@@ -18,12 +18,11 @@ function uploadLAS(file) {
     console.log(lasFile.positions);
     let positionNumsArray = [];
     const positionNormal = new Float32Array(lasFile.numPoints * 3);
-    lasFile.positions.forEach((element) => {
-      positionNumsArray.push(element / 10000.0);
-    });
-    positionNormal.set(positionNumsArray);
-    lasFile.positions = positionNormal;
-    console.log("normalized position is", positionNormal);
+    // lasFile.positions.forEach((element) => {
+    //   positionNumsArray.push(element / 10000.0);
+    // });
+    // positionNormal.set(positionNumsArray);
+    // lasFile.positions = positionNormal;
     if (lasFile.hasColors) {
       console.log("File has colors");
       var startTime = performance.now();
