@@ -12,6 +12,7 @@ let mvp_BG;
 let positionBuffer;
 let colorBuffer;
 let MVP_Buffer;
+var lasInfoBuffer;
 let shadowDepthTexture;
 let commandEncoder;
 let renderPassDescriptor;
@@ -150,6 +151,21 @@ async function initVertexBuffer() {
 }
 
 function initUniform() {
+  lasInfoBuffer = device.createBuffer({
+    size: 10 * 4,
+    usage: GPUBufferUsage.UNIFORM,
+    mappedAtCreation: true,
+  });
+  {
+    var mapping = lasInfoBuffer.getMappedRange();
+    var arr = new Float32Array(mapping);
+    arr.set([lasFile.bounds[0], lasFile.bounds[1], lasFile.bounds[2]]);
+    arr.set([lasFile.bounds[3], lasFile.bounds[4], lasFile.bounds[5]], 4);
+    arr.set([0.5], 8);
+    new Uint32Array(mapping).set([1], 9);
+  }
+  lasInfoBuffer.unmap();
+
   MVP_Buffer = device.createBuffer({
     size: 16 * 4,
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
@@ -209,6 +225,12 @@ async function createBindGroups() {
         binding: 0,
         resource: {
           buffer: MVP_Buffer,
+        },
+      },
+      {
+        binding: 1,
+        resource: {
+          buffer: lasInfoBuffer,
         },
       },
     ],

@@ -11,6 +11,7 @@ function uploadLAS(file) {
     console.log(
       `Opened LAS/LAZ file '${file[0].name}' containing ${lasFile.numPoints} points`
     );
+    console.log(lasFile);
     console.log(`Bounds = ${lasFile.bounds}`);
 
     lasFile.loadPoints();
