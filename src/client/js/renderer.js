@@ -172,7 +172,7 @@ function initUniform() {
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
   });
 
-  camera = new ArcballCamera([0, 0, 3], [0, 0, 0], [0, 1, 0], 0.5, [
+  camera = new ArcballCamera([0, 0, 3], [0, 0, 0], [0, 1, 0], 25, [
     canvas.width,
     canvas.height,
   ]);
