@@ -18,15 +18,7 @@ let vs = `
 
     @group(0) @binding(0) var<uniform> MVP_Matrix: mat4x4<f32>;
     @group(0) @binding(1) var<uniform> lasParams:lasInfo;
-
-    fn unpacku32(color:vec4<u32>)->vec4<f32>{
-        let color1:vec4<f32> = vec4<f32>(color);
-        let x = (color1.x/255.0);
-        let y = (color1.y/255.0);
-        let z = (color1.z/255.0);
-        return vec4<f32>(x, y, z, 1.0);
-    }
-
+    
     @vertex
     fn main(in: VertexInput)->VertexOut{
         var out:VertexOut;
@@ -45,6 +37,6 @@ struct VertexOut {
 
 @fragment
 fn main(in:VertexOut)->@location(0) vec4<f32>{
-    return vec4<f32>(1.0, 1.0, 1.0, 1.0);
+    return vec4<f32>(in.color.x, in.color.y, in.color.z, in.color.w);
 }
 `;

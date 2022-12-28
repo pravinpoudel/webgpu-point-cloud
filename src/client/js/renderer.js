@@ -146,13 +146,14 @@ async function initVertexBuffer() {
   });
 
   let mapArrayColor = new Float32Array(colorBuffer.getMappedRange());
-  mapArrayColor.set(lasFile.colors);
+  console.log(lasFile.Color32);
+  mapArrayColor.set(lasFile.Color32);
   colorBuffer.unmap();
 }
 
 function initUniform() {
   lasInfoBuffer = device.createBuffer({
-    size: 10 * 4,
+    size: 12 * 4,
     usage: GPUBufferUsage.UNIFORM,
     mappedAtCreation: true,
   });
